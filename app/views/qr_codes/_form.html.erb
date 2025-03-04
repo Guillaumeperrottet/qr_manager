@@ -1,0 +1,72 @@
+<!-- app/views/qr_codes/_form.html.erb -->
+<%= simple_form_for @qr_code do |f| %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="space-y-4">
+      <div>
+        <%= f.label :title, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.input :title, label: false, input_html: { class: "w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200" } %>
+      </div>
+
+      <div>
+        <%= f.label :url, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.input :url, label: false, input_html: { class: "w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200" } %>
+      </div>
+
+      <div>
+        <%= f.label :description, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.input :description, as: :text, label: false, input_html: { rows: 4, class: "w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200" } %>
+      </div>
+
+      <div class="flex items-center">
+        <%= f.input :active, as: :boolean, boolean_style: :inline, label: "Active QR Code", label_html: { class: "ml-2 text-gray-700" }, input_html: { class: "rounded text-blue-600 focus:ring-blue-500" } %>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 p-6 rounded-lg">
+      <h3 class="text-lg font-medium text-gray-800 mb-4">QR Code Preview</h3>
+
+      <div class="flex flex-col items-center">
+        <div id="qr-preview" class="bg-white p-4 rounded mb-4 inline-block">
+          <div class="w-48 h-48 flex items-center justify-center text-gray-400">
+            <% if @qr_code.persisted? %>
+              <% qr_data_url = QrCodeGenerator.new(@qr_code.url).as_data_url %>
+              <img src="<%= qr_data_url %>" alt="QR Code Preview" class="w-full h-full">
+            <% else %>
+              <p class="text-center">Enter a URL to<br>preview QR code</p>
+            <% end %>
+          </div>
+        </div>
+
+        <p class="text-sm text-gray-500 text-center">
+          QR codes can be linked to any URL including<br>
+          your restaurant pages, menus, or promotions.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 flex justify-end space-x-3">
+    <%= link_to "Cancel", qr_codes_path, class: "px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50" %>
+    <%= f.button :submit, class: "px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800" %>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlInput = document.getElementById('qr_code_url');
+    const previewDiv = document.getElementById('qr-preview');
+
+    if (urlInput && previewDiv) {
+      urlInput.addEventListener('input', function() {
+        const url = this.value;
+        if (url.trim().length > 0) {
+          // In a real app, you'd make an AJAX request to generate a preview
+          // For now, we'll just show a placeholder
+          previewDiv.innerHTML = '<div class="w-48 h-48 flex items-center justify-center bg-gray-100"><p class="text-center">Preview loading...</p></div>';
+        } else {
+          previewDiv.innerHTML = '<div class="w-48 h-48 flex items-center justify-center text-gray-400"><p class="text-center">Enter a URL to<br>preview QR code</p></div>';
+        }
+      });
+    }
+  });
+</script>

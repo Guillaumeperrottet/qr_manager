@@ -1,0 +1,32 @@
+<footer class="bg-blue-900 text-white mt-12">
+  <div class="container mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-xl font-serif mb-4">QR<span class="text-amber-600">Gastro</span></h3>
+        <p class="text-gray-300">Managing restaurants and QR codes made simple.</p>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-serif mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><%= link_to "Home", root_path, class: "text-gray-300 hover:text-amber-600 transition-colors" %></li>
+          <li><%= link_to "Restaurants", restaurants_path, class: "text-gray-300 hover:text-amber-600 transition-colors" %></li>
+          <li><%= link_to "About Us", "#", class: "text-gray-300 hover:text-amber-600 transition-colors" %></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-serif mb-4">Contact</h3>
+        <ul class="space-y-2 text-gray-300">
+          <li><i class="fas fa-map-marker-alt w-6"></i> 123 Restaurant St., Foodville</li>
+          <li><i class="fas fa-phone w-6"></i> +1 234 567 8900</li>
+          <li><i class="fas fa-envelope w-6"></i> info@qrgastro.com</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+      &copy; <%= Date.current.year %> QRGastro. All rights reserved.
+    </div>
+  </div>
+</footer>

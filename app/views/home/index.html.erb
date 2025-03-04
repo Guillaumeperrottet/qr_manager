@@ -1,0 +1,40 @@
+<div class="relative h-96 mb-12 rounded-lg overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-amber-600/50 z-10"></div>
+  <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Restaurant Banner" class="w-full h-full object-cover">
+
+  <div class="absolute inset-0 flex flex-col items-center justify-center z-20 text-center p-6">
+    <h1 class="text-4xl md:text-5xl font-serif text-white mb-4">Discover Great Restaurants</h1>
+    <p class="text-xl text-white mb-8 max-w-lg">Find the best dining experiences with our curated restaurant collection</p>
+    <%= link_to "Browse Restaurants", restaurants_path, class: "bg-amber-600 text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition-colors text-lg" %>
+  </div>
+</div>
+
+<div class="py-12">
+  <h2 class="text-3xl font-serif text-center mb-12 text-blue-900">How It Works</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+      <div class="inline-block p-4 bg-blue-100 rounded-full mb-4">
+        <i class="fas fa-qrcode text-4xl text-blue-900"></i>
+      </div>
+      <h3 class="text-xl font-semibold mb-3">Generate QR Codes</h3>
+      <p class="text-gray-600">Create custom QR codes for your restaurants, menus, or promotions.</p>
+    </div>
+
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+      <div class="inline-block p-4 bg-amber-100 rounded-full mb-4">
+        <i class="fas fa-mobile-alt text-4xl text-amber-600"></i>
+      </div>
+      <h3 class="text-xl font-semibold mb-3">Engage Customers</h3>
+      <p class="text-gray-600">Provide easy access to your digital content through scannable QR codes.</p>
+    </div>
+
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+      <div class="inline-block p-4 bg-blue-100 rounded-full mb-4">
+        <i class="fas fa-chart-line text-4xl text-blue-900"></i>
+      </div>
+      <h3 class="text-xl font-semibold mb-3">Track Performance</h3>
+      <p class="text-gray-600">Monitor QR code usage and optimize your customer engagement.</p>
+    </div>
+  </div>
+</div>

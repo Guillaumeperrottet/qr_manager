@@ -1,2 +1,120 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<!-- app/views/restaurants/show.html.erb -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+  <div class="h-64 bg-gray-300 relative">
+    <% if @restaurant.image.attached? %>
+      <%= image_tag @restaurant.image, class: "w-full h-full object-cover" %>
+    <% else %>
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="<%= @restaurant.name %>" class="w-full h-full object-cover">
+    <% end %>
+
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+
+    <div class="absolute bottom-0 left-0 right-0 p-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between">
+        <div>
+          <span class="inline-block bg-amber-600 text-white px-3 py-1 rounded text-sm mb-2"><%= @restaurant.category %></span>
+          <h1 class="text-3xl md:text-4xl font-serif text-white"><%= @restaurant.name %></h1>
+        </div>
+
+        <% if user_signed_in? && current_user.id == @restaurant.user_id %>
+          <div class="flex space-x-2 mt-4 md:mt-0">
+            <%= link_to edit_restaurant_path(@restaurant), class: "bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded backdrop-blur-sm transition-colors" do %>
+              <i class="fas fa-edit mr-2"></i> Edit
+            <% end %>
+
+            <%= button_to generate_qr_code_restaurant_path(@restaurant), method: :post, class: "bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded backdrop-blur-sm transition-colors" do %>
+              <i class="fas fa-qrcode mr-2"></i> Generate QR
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="md:col-span-2">
+        <div class="mb-8">
+          <h2 class="text-2xl font-serif text-blue-900 mb-4">About</h2>
+          <p class="text-gray-700 leading-relaxed"><%= @restaurant.description %></p>
+        </div>
+
+        <!-- Sample menu section for the prototype -->
+        <div>
+          <h2 class="text-2xl font-serif text-blue-900 mb-4">Menu Highlights</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <% ['Appetizer', 'Main Course', 'Dessert', 'Beverage'].each do |category| %>
+              <div class="border border-gray-200 rounded-lg p-4">
+                <h3 class="text-lg font-medium text-amber-600 mb-2"><%= category %></h3>
+                <ul class="space-y-2">
+                  <% 3.times do |i| %>
+                    <li class="flex justify-between">
+                      <span class="text-gray-800">Sample <%= category.downcase %> <%= i + 1 %></span>
+                      <span class="text-gray-600">$<%= rand(5..30) %></span>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="bg-gray-50 rounded-lg p-6 mb-6">
+          <h2 class="text-xl font-serif text-blue-900 mb-4">Details</h2>
+
+          <div class="space-y-4">
+            <div>
+              <p class="text-sm text-gray-500 mb-1">Price Range</p>
+              <p class="text-gray-800"><%= @restaurant.price_level %></p>
+            </div>
+
+            <div>
+              <p class="text-sm text-gray-500 mb-1">Category</p>
+              <p class="text-gray-800"><%= @restaurant.category %></p>
+            </div>
+
+            <div>
+              <p class="text-sm text-gray-500 mb-1">Address</p>
+              <p class="text-gray-800"><%= @restaurant.address.present? ? @restaurant.address : "Not specified" %></p>
+            </div>
+
+            <div>
+              <p class="text-sm text-gray-500 mb-1">Phone</p>
+              <p class="text-gray-800"><%= @restaurant.phone.present? ? @restaurant.phone : "Not specified" %></p>
+            </div>
+
+            <div>
+              <p class="text-sm text-gray-500 mb-1">Website</p>
+              <% if @restaurant.website.present? %>
+                <%= link_to @restaurant.website, @restaurant.website, target: "_blank", class: "text-blue-600 hover:underline" %>
+              <% else %>
+                <p class="text-gray-800">Not specified</p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 rounded-lg p-6">
+          <h2 class="text-xl font-serif text-blue-900 mb-4">Opening Hours</h2>
+
+          <!-- Sample opening hours for prototype -->
+          <div class="space-y-2">
+            <% ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].each do |day| %>
+              <div class="flex justify-between">
+                <span class="text-gray-700"><%= day %></span>
+                <% if day == 'Monday' %>
+                  <span class="text-red-600">Closed</span>
+                <% else %>
+                  <span class="text-gray-800">11:00 AM - 10:00 PM</span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
